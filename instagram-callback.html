@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>Instagram Connection | The Archive</title><style>body{background:#101018;color:#f1f1ff;font:16px system-ui,sans-serif;max-width:600px;margin:15vh auto;padding:24px}a{color:#b7a6ff}</style></head><body><h1>Returning to Clipping Studio…</h1><p>Keep Clipping Studio running on this computer.</p><p id="help">If nothing happens, <a id="return" href="http://127.0.0.1:3847/">open Clipping Studio</a>.</p><script>
+'use strict';
+// The Instagram OAuth code is forwarded to the user's local server; no token is stored here.
+const allowed=new URLSearchParams(location.search);
+const safe=new URLSearchParams();
+for(const key of ['code','state','error','error_reason','error_description'])if(allowed.has(key))safe.set(key,allowed.get(key));
+const destination='http://127.0.0.1:3847/api/social/callback/instagram?'+safe.toString();
+document.getElementById('return').href=destination;
+if(safe.has('state'))location.replace(destination);
+else document.getElementById('help').textContent='Missing authorization state. Return to Clipping Studio and try Connect Instagram again.';
+</script></body></html>
